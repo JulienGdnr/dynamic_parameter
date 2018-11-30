@@ -1,31 +1,205 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <button @click.prevent="getData">Reset last month</button>
   </div>
 </template>
 
+<script>
+require('./extension.js');
+export default {
+  name: 'home',
+  data(){
+    return {
+      dashboard : null,
+      year : 0,
+      month : 0,
+      months : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    }
+  },
+  methods : {
+    getData(){
+      this.dashboard.findParameterAsync("Month")
+      .then(data=>{
+          data.changeValueAsync(this.months[this.month])
+      })
+      this.dashboard.findParameterAsync("Year")
+      .then(data=>{
+        data.changeValueAsync(this.year)
+      })
+    }
+  },
+  mounted(){
+    const d = new Date()
+    this.year = d.getYear() + 1900
+    this.month = d.getMonth()
+    if(this.month == 0){
+      this.month = 11
+      this.year = this.year - 1
+    } else {
+      this.month = this.month - 1
+    }
+    tableau.extensions.initializeAsync()
+    .then(() => {
+      this.dashboard = tableau.extensions.dashboardContent.dashboard
+      this.getData()
+    })
+ }
+}
+</script>
+
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+/*CSS for a really simple responsive grid*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
-#nav {
-  padding: 30px;
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+/*All the button styles*/
+
+* {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
+a{text-decoration:none;}
+
+/********************
+GENERIC BUTTON STYLES
+********************/
+#app { 
+  height: 100vh;
+  position: relative;}
+.btn {font-size: 12px; width:100%; padding:.2em 0.2em;
+position: absolute;
+  top: 50%;
+font-family: Open Sans, Helvetica,Arial,sans-serif; line-height:18px; display: inline-block;zoom: 1; color: #fff; text-align: center; position:relative; -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear; transition: border .25s linear, color .25s linear, background-color .25s linear;}
+
+/*SEA GREEN BUTTON STYLES*/		
+.btn.btn-sea{background-color: #08bc9a; border-color: #08bc9a; -webkit-box-shadow: 0 3px 0 #088d74; box-shadow: 0 3px 0 #088d74;}
+.btn.btn-sea:hover{background-color:#01a183;}
+.btn.btn-sea:active{ top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+
+/*DARK BLUE BUTTON STYLES*/		
+.btn.btn-dark-blue{background-color: #237fbc; border-color: #237fbc; -webkit-box-shadow: 0 3px 0 #1a5c87; box-shadow: 0 3px 0 #1a5c87;}
+.btn.btn-dark-blue:hover{background-color:#166ea8;}
+.btn.btn-dark-blue:active{ top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+
+/*RED/ROUGE BUTTON STYLES*/		
+.btn.btn-rouge{background-color: #c0392b; border-color: #c0392b; -webkit-box-shadow: 0 3px 0 #8f2a1f; box-shadow: 0 3px 0 #8f2a1f;}
+.btn.btn-rouge:hover{background-color:#ac3420;}
+.btn.btn-rouge:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+
+/*DARK BUTTON STYLES*/		
+.btn.btn-dark{background-color: #2c3d51; border-color: #2c3d51; -webkit-box-shadow: 0 3px 0 #080c0f; box-shadow: 0 3px 0 #080c0f;}
+.btn.btn-dark:hover{background-color:#202d3d;}
+.btn.btn-dark:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+
+/*DARK BUTTON STYLES*/		
+.btn.btn-orange{background-color: #f59e00; border-color: #f59e00; -webkit-box-shadow: 0 3px 0 #b37401; box-shadow: 0 3px 0 #b37401;}
+.btn.btn-orange:hover{background-color:#dd9003;}
+.btn.btn-orange:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+
+/*SUNFLOWER BUTTON STYLES*/		
+.btn.btn-sunflower{background-color: #f2c500; border-color: #f2c500; -webkit-box-shadow: 0 3px 0 #b19001; box-shadow: 0 3px 0 #b19001;}
+.btn.btn-sunflower:hover{background-color:#e3ba02;}
+.btn.btn-sunflower:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+
+/*RED BUTTON STYLES*/		
+.btn.btn-red{background-color: #ea4f37; border-color: #ea4f37; -webkit-box-shadow: 0 3px 0 #b13825; box-shadow: 0 3px 0 #b13825;}
+.btn.btn-red:hover{background-color:#a53422;}
+.btn.btn-red:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+
+/*CONCRETE BUTTON STYLES*/		
+.btn.btn-concrete{background-color: #7e8c8d; border-color: #7e8c8d; -webkit-box-shadow: 0 3px 0 #4e5b5c; box-shadow: 0 3px 0 #4e5b5c;}
+.btn.btn-concrete:hover{background-color:#6a7879;}
+.btn.btn-concrete:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+		
+/********************
+SOCIAL BUTTON STYLES
+********************/
+
+/*FACEBOOK*/
+.btn.btn-facebook{background-color: #2479b6; border-color: #2479b6; -webkit-box-shadow: 0 3px 0 #1c6394; box-shadow: 0 3px 0 #1c6394;}
+.btn.btn-facebook:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*TWITTER*/
+.btn.btn-twitter{background-color: #2a91db; border-color: #2a91db; -webkit-box-shadow: 0 3px 0 #1d6ea7; box-shadow: 0 3px 0 #1d6ea7;}
+.btn.btn-twitter:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*GOOGLE PLUS*/
+.btn.btn-google-plus{background-color: #be3b26; border-color: #be3b26; -webkit-box-shadow: 0 3px 0 #842719; box-shadow: 0 3px 0 #842719;}
+.btn.btn-google-plus:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*DRIBBBLE*/
+.btn.btn-dribbble{background-color: #f62d7e; border-color: #f62d7e; -webkit-box-shadow: 0 3px 0 #d3235a; box-shadow: 0 3px 0 #d3235a;}
+.btn.btn-dribbble:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*YOU TUBE*/
+.btn.btn-you-tube{background-color: #cf3728; border-color: #cf3728; -webkit-box-shadow: 0 3px 0 #9a1e1a; box-shadow: 0 3px 0 #9a1e1a;}
+.btn.btn-you-tube:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*LinkedIn*/
+.btn.btn-linkedin{background-color: #0074ba; border-color: #0074ba; -webkit-box-shadow: 0 3px 0 #00497b; box-shadow: 0 3px 0 #00497b;}
+.btn.btn-linkedin:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*Dropbox*/
+.btn.btn-dropbox{background-color: #0083e4; border-color: #0083e4; -webkit-box-shadow: 0 3px 0 #015593; box-shadow: 0 3px 0 #015593;}
+.btn.btn-dropbox:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*Wordpress*/
+.btn.btn-wordpress{background-color: #1d7794; border-color: #1d7794; -webkit-box-shadow: 0 3px 0 #114657; box-shadow: 0 3px 0 #114657;}
+.btn.btn-wordpress:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*Pinterest*/
+.btn.btn-pinterest{background-color: #c8232a; border-color: #c8232a; -webkit-box-shadow: 0 3px 0 #89171b; box-shadow: 0 3px 0 #89171b;}
+.btn.btn-pinterest:active{ top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*Skype*/
+.btn.btn-skype{background-color: #2eabde; border-color: #2eabde; -webkit-box-shadow: 0 3px 0 #1b6684; box-shadow: 0 3px 0 #1b6684;}
+.btn.btn-skype:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*Instagram*/
+.btn.btn-instagram{background-color: #5182aa; border-color: #5182aa; -webkit-box-shadow: 0 3px 0 #1f415d; box-shadow: 0 3px 0 #1f415d;}
+.btn.btn-instagram:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+/*RSS*/
+.btn.btn-rss{background-color: #f8a933; border-color: #f8a933; -webkit-box-shadow: 0 3px 0 #ab7422; box-shadow: 0 3px 0 #ab7422;}
+.btn.btn-rss:active{top: 3px; outline: none; -webkit-box-shadow: none; box-shadow: none;}
+
+/**********
+Icon styles
+**********/
+.btn i {padding-right:0.8em; line-height:22px;}
+.icon-only{padding: 1em;}
+.icon-only i{padding-right:0; font-size:22px; line-height:22px; }
+	
+
+
+		
 </style>

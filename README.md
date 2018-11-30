@@ -18,11 +18,11 @@ Integrate the .trex extension into a Tableau Dashboard with 2 integer parameters
 Year parameter can be allowed any value, Month values between 1 and 12 with Aliases like 
 "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 
+# Project setup
+
 ### Installing
 
 Change the url in dynamicParameter.trex to localhost:8080
-
-# Project setup
 ```
 npm install
 ```

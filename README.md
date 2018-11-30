@@ -4,15 +4,19 @@ This project is about creating a Tableau Extension which could automatically res
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+What things you need to install the extension
 
 ```
 Node.js, npm
 ```
+
+Integrate the .trex extension into a Tableau Dashboard with 2 integer parameters : Month and Year
+Year parameter can be allowed any value, Month values between 1 and 12 with Aliases like 
+"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 
 ### Installing
 
@@ -33,10 +37,6 @@ npm run serve
 npm run build
 ```
 
-Integrate the .trex extension into a Tableau Dashboard with 2 integer parameters : Month and Year
-Year parameter can be allowed any value, Month values between 1 and 12 with Aliases like 
-"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-
 ## Built With
 
 * [Vue](https://vuejs.org/) - The web framework used
@@ -44,7 +44,7 @@ Year parameter can be allowed any value, Month values between 1 and 12 with Alia
 
 ## Authors
 
-* **Julien Godenir** - *Initial work* - [PurpleBooth](https://github.com/JulienGdnr)
+* **Julien Godenir** - *Initial work* - [Datapony](https://datapony.co)
 
 ## License
 
